@@ -3,14 +3,38 @@
 #include <iostream>
 #include <string>
 
-char getNewChar(char, short, bool);
+char encrypt(char, short, bool);
+char decrypt(char, short, bool);
+char(*func)(char, short, bool);
 
 int main()
 {
-	std::string alphabet = "ABCDEFGHIKLMNOPQRSTVXYZ";
+	std::string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	std::string sourceFilePath;
+	char* outputFileName;
 	unsigned short offset;
 	std::string sourceText;
+	int mode;
+
+	do {
+		std::cout << "Type 1 if you want to encrypt\n";
+		std::cout << "And 2 if you want to decrypt\n";
+		std::cin >> mode;
+		if (mode < 1 || mode > 2)
+			std::cout << "Incorrect mode\n";
+		else
+			break;
+	} while (true);
+	
+	if (mode == 1) {
+		func = &encrypt;
+		outputFileName = "encrypted.txt";
+	}
+	else {
+		func = &decrypt;
+		outputFileName = "decrypted.txt";
+	}
+		
 
 	std::cout << "Enter the path to the source file: ";
 	std::cin >> sourceFilePath;
@@ -28,11 +52,11 @@ int main()
 		if (index != -1) {
 			if (sourceText[i] >= 65 && sourceText[i] <= 90)
 				isCharInUpperCase = true;
-			sourceText[i] = getNewChar(sourceText[i], offset, isCharInUpperCase);
+			sourceText[i] = func(sourceText[i], offset, isCharInUpperCase);
 		}
 	}
 	
-	std::ofstream outputFile("output.txt");
+	std::ofstream outputFile(outputFileName);
 	outputFile << sourceText;
 
 	sourceFile.close();
@@ -42,8 +66,14 @@ int main()
     return 0;
 }
 
-char getNewChar(char old, short offset, bool isCharInUpperCase) {
-	if (isCharInUpperCase && (old + offset) > 90) return old + offset - 26;
-	else if (!isCharInUpperCase && (old + offset) > 122) return old + offset - 26;
-	return old + offset;
+char encrypt(char old, short offset, bool isCharInUpperCase) {
+	if (isCharInUpperCase && (old + offset) > 90) return (old + offset - 26);
+	else if (!isCharInUpperCase && (old + offset) > 122) return (old + offset - 26);
+	return (old + offset);
+}
+
+char decrypt(char old, short offset, bool isCharInUpperCase) {
+	if (isCharInUpperCase && (old - offset) < 65) return (old - offset + 26);
+	else if (!isCharInUpperCase && (old - offset) < 97) return (old - offset + 26);
+	return (old - offset);
 }
