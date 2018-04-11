@@ -1,7 +1,8 @@
-﻿  stdafx.cpp
-  cipherofcaesar.cpp
+﻿  cipherofcaesar.cpp
   Создание кода
-  All 169 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  18 of 170 functions (10.6%) were compiled, the rest were copied from previous compilation.
+    6 functions were new in current compilation
+    34 functions had inline decision re-evaluated but remain unchanged
   Создание кода завершено
   cipher-of-caesar.vcxproj -> C:\Users\bezim\source\repos\cipher-of-caesar\Release\cipher-of-caesar.exe
   cipher-of-caesar.vcxproj -> C:\Users\bezim\source\repos\cipher-of-caesar\Release\cipher-of-caesar.pdb (Full PDB)
